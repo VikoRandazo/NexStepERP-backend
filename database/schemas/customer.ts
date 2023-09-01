@@ -7,8 +7,8 @@ const CustomerSchema = new Schema<Customer>(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    email: { type: String, required: true, unique: true }, // Assuming email should be unique
-    phoneNumber: { type: String },
+    email: { type: String, required: true, unique: true },
+    phoneNumber: { type: String, required: true },
     dateRegistered: { type: Date, required: true, default: Date.now },
     address: AddressSchema,
     purchaseHistory: [PurchaseHistorySchema],

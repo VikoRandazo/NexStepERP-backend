@@ -10,4 +10,3 @@ export const PurchaseHistorySchema = new Schema<PurchaseHistory>(
   { _id: false }
 );
 
-export const  PurchaseHistoryModel = model(`purchaseHistory`, PurchaseHistorySchema)

@@ -12,4 +12,3 @@ export const AddressSchema = new Schema<Address>(
   { _id: false }
 );
 
-export const AddressModel = model(`address`, AddressSchema);
