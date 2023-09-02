@@ -1,6 +1,6 @@
 import * as yup from "yup";
-import { addressSchema } from "./address";
-import { purchaseHistorySchema } from "./purchaseHistory";
+import { addressSchema } from "../shared/address";
+import { purchaseHistorySchema } from "../shared/purchaseHistory";
 
 export const customerValidationSchema = yup.object().shape({
   firstName: yup.string().required(),

@@ -1,5 +1,5 @@
 import { Schema, model, Document } from "mongoose";
-import { PurchaseHistory } from "../../src/models/PurchaseHistory";
+import { PurchaseHistory } from "../../../src/models/PurchaseHistory";
 
 export const PurchaseHistorySchema = new Schema<PurchaseHistory>(
   {

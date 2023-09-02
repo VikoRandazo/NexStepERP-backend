@@ -1,5 +1,5 @@
 import { Schema, model, Document } from "mongoose";
-import { Address } from "../../src/models/Address";
+import { Address } from "../../../src/models/Address";
 
 export const AddressSchema = new Schema<Address>(
   {
@@ -11,4 +11,3 @@ export const AddressSchema = new Schema<Address>(
   },
   { _id: false }
 );
-

@@ -1,7 +1,7 @@
 import { Schema, model, Document } from "mongoose";
 import { Customer } from "../../src/models/Customer";
-import { AddressSchema } from "./address";
-import { PurchaseHistorySchema } from "./purchaseHistory";
+import { AddressSchema } from "./shared/address";
+import { PurchaseHistorySchema } from "./shared/purchaseHistory";
 
 const CustomerSchema = new Schema<Customer>(
   {

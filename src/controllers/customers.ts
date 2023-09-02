@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { CustomerModel } from "../../database/schemas/customer";
-import { customerValidationSchema } from "../validation/customer";
+import { customerValidationSchema } from "../validation/customers/customer";
 
 export const getCustomers = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -14,9 +14,8 @@ export const getCustomers = async (req: Request, res: Response, next: NextFuncti
 export const createCustomer = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const newCustomerData = req.body;
-   const validation = customerValidationSchema.validate(newCustomerData)
-   console.log(validation);
-   
+    const validation = await customerValidationSchema.validate(newCustomerData);
+
     const newCustomer = await CustomerModel.create(newCustomerData);
     res.status(201).json({ message: "Success!", customer: newCustomer });
   } catch (error) {
@@ -31,7 +30,7 @@ export const deleteCustomer = async (req: Request, res: Response, next: NextFunc
     const foundCustomer = await CustomerModel.deleteOne({ _id: cid });
     console.log(foundCustomer);
 
-    // res.status(200).json({message:"Success!", customer_deleted: foundCustomer})
+    res.status(200).json({message:"Success!", customer_deleted: foundCustomer})
   } catch (error) {
     res.status(500).json(error);
   }
