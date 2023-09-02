@@ -1,5 +1,5 @@
-import { Address } from "./Address";
-import { PurchaseHistory } from "./PurchaseHistory";
+import { Address } from "../shared/Address";
+import { PurchaseHistory } from "../shared/PurchaseHistory";
 
 export type Customer = {
   id: string;

@@ -1,9 +1,9 @@
-import { Schema, model, Document } from "mongoose";
-import { Customer } from "../../src/models/Customer";
+import { Schema, model } from "mongoose";
+import { Customer } from "../../src/models/Customers/Customer";
 import { AddressSchema } from "./shared/address";
 import { PurchaseHistorySchema } from "./shared/purchaseHistory";
 
-const CustomerSchema = new Schema<Customer>(
+const CustomerSchema = new Schema(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
@@ -16,4 +16,4 @@ const CustomerSchema = new Schema<Customer>(
   { versionKey: false }
 );
 
-export const CustomerModel = model(`customer`, CustomerSchema);
+export const CustomerModel = model<Customer>(`customer`, CustomerSchema);

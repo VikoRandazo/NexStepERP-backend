@@ -2,6 +2,20 @@ import { Request, Response, NextFunction } from "express";
 import { ProductModel } from "../../database/schemas/product";
 import { productValidation } from "../validation/Products/product";
 
+// middleWares
+export const getProduct = async (req: Request, res: Response, next: NextFunction) => {
+  const products = req.body; // array
+  try {
+    for (const product of products) {
+      const foundProduct = await ProductModel.findById({ _id: product.pid });
+      console.log(foundProduct);
+    }
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const products = ProductModel.find();
@@ -50,4 +64,16 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
   } catch (error) {
     res.status(500).json(error);
   }
+};
+
+// reusable functions
+
+export const updateProductData = async (pid:string, updates:any) => {
+try {
+    const updatedProduct = await ProductModel.findByIdAndUpdate(pid, updates, { new: true });
+    console.log(updatedProduct);
+    
+} catch (error) {
+  console.log(error);
+}
 };

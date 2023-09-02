@@ -1,17 +1,18 @@
-import { Schema, model, Document } from "mongoose";
-import Product from "../../src/models/Product";
+import { Schema, model, Types } from "mongoose";
+import Product from "../../src/models/Products/Product";
 
-const ProductSchema = new Schema<Product>(
+export const ProductSchema = new Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, index: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
     imageUrl: { type: String, required: true },
-    category: { type: String, required: true },
+    category: { type: String, required: true, index: true },
     stockQuantity: { type: Number, required: true },
-    manufacturer: { type: String, required: true },
+    manufacturer: { type: String },
+    purchasesAmount: { type: Number, default: 0 },
   },
   { versionKey: false }
 );
 
-export const ProductModel = model(`product`, ProductSchema);
+export const ProductModel = model<Product>("product", ProductSchema);

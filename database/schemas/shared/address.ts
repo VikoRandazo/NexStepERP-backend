@@ -1,5 +1,5 @@
 import { Schema, model, Document } from "mongoose";
-import { Address } from "../../../src/models/Address";
+import { Address } from "../../../src/models/shared/Address";
 
 export const AddressSchema = new Schema<Address>(
   {

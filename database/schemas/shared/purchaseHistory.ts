@@ -1,12 +1,11 @@
 import { Schema, model, Document } from "mongoose";
-import { PurchaseHistory } from "../../../src/models/PurchaseHistory";
+import { PurchaseHistory } from "../../../src/models/shared/PurchaseHistory";
 
 export const PurchaseHistorySchema = new Schema<PurchaseHistory>(
   {
     productId: { type: String, required: true },
-    purchaseDate: { type: Date, required: true },
+    purchaseDate: { type: String, required: true },
     amountPaid: { type: Number, required: true },
   },
-  { _id: false }
+  { _id: false, versionKey: false }
 );
-
