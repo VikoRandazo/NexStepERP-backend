@@ -12,7 +12,7 @@ import { PurchaseHistory } from "../models/shared/PurchaseHistory";
 export const handleSoldProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const date = new Date().toISOString();
-    const productsSold: ProductsSold[] = req.body;
+    const productsSold = req.body;
     let totalAmount = 0;
     const cid = req.params.cid;
 
@@ -30,14 +30,25 @@ export const handleSoldProduct = async (req: Request, res: Response, next: NextF
 
         const purchaseHistoryUpdates: PurchaseHistory = {
           productId: currentProduct.pid,
+          quantity: currentProduct.quantity,
           purchaseDate: new Date().toISOString(),
           amountPaid: currentProduct.price * currentProduct.quantity,
         };
 
         customerUpdates = { purchaseHistory: purchaseHistoryUpdates };
 
-        totalAmount += currentProduct.price;
-        updateProductData(currentProduct.pid, productUpdates);
+        totalAmount += currentProduct.price * currentProduct.quantity;
+
+// Check if the product is in stock
+
+        const updateProductResult = await updateProductData(currentProduct.pid, productUpdates);
+        
+        if (!updateProductResult.success) {
+          return res
+            .status(400)
+            .json({ message: `Failed to update product data`, error: updateProductResult.error });
+        }
+
         updateCustomerData(cid, customerUpdates);
       }
     }
@@ -51,7 +62,7 @@ export const handleSoldProduct = async (req: Request, res: Response, next: NextF
 
     const newSale = await SaleModel.create(saleObj);
 
-    res.status(201).json({ message: "Success!", purchase: [newSale] });
+    res.status(201).json({ message: "Success!", purchase: newSale });
   } catch (error) {
     console.log(error);
   }

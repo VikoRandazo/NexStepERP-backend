@@ -68,12 +68,15 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
 
 // reusable functions
 
-export const updateProductData = async (pid:string, updates:any) => {
-try {
-    const updatedProduct = await ProductModel.findByIdAndUpdate(pid, updates, { new: true });
-    console.log(updatedProduct);
-    
-} catch (error) {
-  console.log(error);
-}
+export const updateProductData = async (pid: string, updates: any) => {
+  try {
+    const updatedProduct = await ProductModel.findByIdAndUpdate(pid, updates, {
+      new: true,
+      runValidators: true,
+    });
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+    return { success: false, error: error}
+  }
 };
