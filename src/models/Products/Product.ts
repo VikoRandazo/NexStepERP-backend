@@ -1,4 +1,3 @@
-import { Document } from "mongoose";
 
 export interface Product{
   id: string;
@@ -12,4 +11,3 @@ export interface Product{
   purchasesAmount?: number;
 }
 
-export default Product;

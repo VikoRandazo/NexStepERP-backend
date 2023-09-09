@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ProductModel } from "../../database/schemas/product";
 import { SaleModel } from "../../database/schemas/sale";
-import Product from "../models/Products/Product";
+import { Product } from "../models/Products/Product";
 import { Sale } from "../models/Sales/Sale";
 import { ProductsSold } from "../models/Products/ProductsSold";
 import { updateCustomerData } from "./customers";
@@ -39,10 +39,10 @@ export const handleSoldProduct = async (req: Request, res: Response, next: NextF
 
         totalAmount += currentProduct.price * currentProduct.quantity;
 
-// Check if the product is in stock
+        // Check if the product is in stock
 
         const updateProductResult = await updateProductData(currentProduct.pid, productUpdates);
-        
+
         if (!updateProductResult.success) {
           return res
             .status(400)

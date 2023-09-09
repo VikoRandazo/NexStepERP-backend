@@ -1,5 +1,5 @@
 import { Schema, model, Types } from "mongoose";
-import Product from "../../src/models/Products/Product";
+import { Product } from "../../src/models/Products/Product";
 
 export const ProductSchema = new Schema(
   {
@@ -22,7 +22,6 @@ export const ProductSchema = new Schema(
     purchasesAmount: { type: Number, default: 0 },
   },
   { versionKey: false }
-  
 );
 
 export const ProductModel = model<Product>("product", ProductSchema);

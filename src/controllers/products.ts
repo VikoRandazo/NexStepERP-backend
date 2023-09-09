@@ -18,10 +18,11 @@ export const getProduct = async (req: Request, res: Response, next: NextFunction
 
 export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const products = ProductModel.find();
+    const products = await ProductModel.find();
     res.status(200).json(products);
   } catch (error) {
-    res.status(500).json(error);
+    console.log(error);
+    
   }
 };
 
