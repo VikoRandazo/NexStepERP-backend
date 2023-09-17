@@ -4,9 +4,9 @@ import { Product } from "../../src/models/Products/Product";
 export const ProductSchema = new Schema(
   {
     name: { type: String, required: true, index: true },
-    description: { type: String, required: true },
+    description: { type: String, required: false },
     price: { type: Number, required: true },
-    imageUrl: { type: String, required: true },
+    imageUrl: { type: String, required: false },
     category: { type: String, required: true, index: true },
     stockQuantity: {
       type: Number,
@@ -18,8 +18,8 @@ export const ProductSchema = new Schema(
         },
       },
     },
-    manufacturer: { type: String },
-    purchasesAmount: { type: Number, default: 0 },
+    manufacturer: { type: String, required: false },
+    purchasesAmount: { type: Number, required: false, default: 0 },
   },
   { versionKey: false }
 );

@@ -1,5 +1,4 @@
 import * as yup from "yup";
-import { purchaseHistorySchema } from "../shared/purchaseHistory";
 
 export const productValidation = yup.object().shape({
   name: yup
@@ -8,8 +7,7 @@ export const productValidation = yup.object().shape({
     .min(3, "Name should be at least 3 characters"),
   description: yup
     .string()
-    .required("Description is required")
-    .min(10, "Description should be at least 10 characters"),
+    .notRequired(),
   price: yup.number().required("Price is required").positive("Price must be a positive number"),
   imageUrl: yup.string().url("Must be a valid URL").notRequired(),
   category: yup.string().required(`Must assign product to a category`),
