@@ -73,6 +73,20 @@ export const deleteProduct = async (req: Request, res: Response, next: NextFunct
   }
 };
 
+export const deleteProducts = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const ids= req.body
+    console.log(ids);
+    
+    const foundProducts = await ProductModel.deleteMany({ _id: { $in: ids } });
+    res.status(200).json({ message: "Success!", product_deleted: foundProducts.deletedCount });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json(error);
+  }
+};
+
 export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const pid = req.params.pid;

@@ -9,7 +9,7 @@ export const productValidation = yup.object().shape({
     .string()
     .notRequired(),
   price: yup.number().required("Price is required").positive("Price must be a positive number"),
-  imageUrl: yup.string().url("Must be a valid URL").notRequired(),
+  imageUrl: yup.string(),
   category: yup.string().required(`Must assign product to a category`),
   stockQuantity: yup
     .number()
