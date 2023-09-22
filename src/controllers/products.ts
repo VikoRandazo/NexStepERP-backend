@@ -80,6 +80,7 @@ export const deleteProducts = async (req: Request, res: Response, next: NextFunc
     
     const foundProducts = await ProductModel.deleteMany({ _id: { $in: ids } });
     res.status(200).json({ message: "Success!", product_deleted: foundProducts.deletedCount });
+  next()
   } catch (error) {
     console.log(error);
 
