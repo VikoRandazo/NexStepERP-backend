@@ -15,6 +15,6 @@ router.post("/findProducts", getProduct);
 router.post("/new", createProduct);
 router.delete("/:pid", deleteProduct);
 router.post("/delete", deleteProducts);
-router.patch("/:pid", updateProduct);
+router.post("/:pid", updateProduct);
 
 export default router;

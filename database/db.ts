@@ -10,3 +10,5 @@ export const connectDB = async () => {
     console.log(error);
   }
 };
+// mongodb+srv://vikorandazo:Vikoran12@cluster0.mar81ov.mongodb.net/NexStepErp
+
