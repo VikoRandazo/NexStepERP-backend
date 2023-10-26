@@ -5,7 +5,7 @@ import salesRoutes from "./Sales/sales";
 
 const router = Router();
 
-router.use("/customers", customersRoutes);
+router.use("/clients", customersRoutes);
 router.use("/products", productsRoutes);
 router.use("/sales", salesRoutes);
 
