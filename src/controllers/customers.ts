@@ -13,11 +13,25 @@ export const getCustomers = async (req: Request, res: Response, next: NextFuncti
 };
 
 export const createCustomer = async (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.body);
+
   try {
     const newCustomerData = req.body;
-    const validation = await customerValidationSchema.validate(newCustomerData);
+    const { firstName, lastName, email, phoneNumber, address } = newCustomerData;
+    const { street, city, state, postalCode, country } = address;
+    const customerStructure = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      address,
+      dateRegistered: new Date().toISOString(),
 
-    const newCustomer = await CustomerModel.create(newCustomerData);
+      purchaseHistory: [],
+    };
+    const validation = await customerValidationSchema.validate(customerStructure);
+
+    const newCustomer = await CustomerModel.create(validation);
     res.status(201).json({ message: "Success!", customer: newCustomer });
   } catch (error) {
     res.status(500).json(error);
@@ -52,10 +66,9 @@ export const updateCustomer = async (req: Request, res: Response, next: NextFunc
 // reusable functions
 
 export const updateCustomerData = async (cid: string, updates: any) => {
-try {
+  try {
     await CustomerModel.findByIdAndUpdate({ _id: cid }, { $push: updates });
-  
-} catch (error) {
-  console.log(error);
-
-}};
+  } catch (error) {
+    console.log(error);
+  }
+};
