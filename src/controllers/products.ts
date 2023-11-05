@@ -5,18 +5,31 @@ import { Product } from "../models/Products/Product";
 
 // middleWares
 export const getProduct = async (req: Request, res: Response, next: NextFunction) => {
-  const products = req.body; // array
+  const pid = req.body; 
 
   try {
-    for (const product of products) {
-      const foundProduct = await ProductModel.findById({ _id: product.pid });
-      console.log(foundProduct);
-    }
-    res.status(200).json(products);
+    const foundProduct = await ProductModel.findById({ _id: pid });
+    console.log(foundProduct);
+
+    res.status(200).json(foundProduct);
   } catch (error) {
     res.status(500).json(error);
   }
 };
+
+// export const getProduct = async (req: Request, res: Response, next: NextFunction) => {
+//   const products = req.body; // array
+
+//   try {
+//     for (const product of products) {
+//       const foundProduct = await ProductModel.findById({ _id: product.pid });
+//       console.log(foundProduct);
+//     }
+//     res.status(200).json(products);
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// };
 
 export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -42,19 +55,6 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
     console.log(error);
     res.status(500).json(error);
 
-    // ------------------------------------
-    // example to exec
-    // ------------------------------------
-    // {
-    //   "name": "Test Product",
-    //   "description": "This is a test product description.",
-    //   "price": 99.99,
-    //   "imageUrl": "http://example.com/test-product.jpg",
-    //   "category": "Test Category",
-    //   "stockQuantity": 100,
-    //   "manufacturer": "Test Manufacturer",
-    //   "purchasesAmount": 0
-    // }
   }
 };
 
@@ -88,7 +88,7 @@ export const deleteProducts = async (req: Request, res: Response, next: NextFunc
 export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const pid = req.params.pid;
-    const updates:Partial<Product> = req.body;
+    const updates: Partial<Product> = req.body;
     console.log(updates.imageUrl);
 
     const updatedProduct = await ProductModel.findOneAndReplace({ _id: pid }, updates, {

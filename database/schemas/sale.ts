@@ -6,10 +6,10 @@ const SaleSchema = new Schema(
     date: { type: String, required: true },
     productsSold: [
       {
-        pid: {type: Schema.Types.ObjectId, ref: 'product', required: true},
-        price: {type: Number, required: true},
-        quantity: {type: Number, required: true}
-      }
+        pid: { type: Schema.Types.ObjectId, ref: "product", required: true },
+        price: { type: Number, required: true },
+        quantity: { type: Number, required: true },
+      },
     ],
     totalAmount: { type: Number, required: true },
     customerId: { type: String, required: true },

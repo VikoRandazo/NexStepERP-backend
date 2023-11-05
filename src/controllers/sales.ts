@@ -10,18 +10,20 @@ import { CustomerModel } from "../../database/schemas/customer";
 import { PurchaseHistory } from "../models/shared/PurchaseHistory";
 
 export const handleSoldProduct = async (req: Request, res: Response, next: NextFunction) => {
+
   try {
-    const date = new Date().toISOString();
-    const productsSold = req.body;
-    let totalAmount = 0;
+    const productsSold = req.body.productsSold;
     const cid = req.params.cid;
 
+    const date = new Date().toISOString();
+    let totalAmount = 0;
     let productUpdates;
     let customerUpdates;
 
     for (const currentProduct of productsSold) {
       const foundProduct: Product | any = await ProductModel.findOne({ _id: currentProduct.pid });
-
+      console.log(currentProduct);
+      
       if (foundProduct) {
         productUpdates = {
           stockQuantity: foundProduct.stockQuantity - currentProduct.quantity,
@@ -37,7 +39,7 @@ export const handleSoldProduct = async (req: Request, res: Response, next: NextF
 
         customerUpdates = { purchaseHistory: purchaseHistoryUpdates };
 
-        totalAmount += currentProduct.price * currentProduct.quantity;
+        totalAmount += currentProduct.price;
 
         // Check if the product is in stock
 
@@ -68,6 +70,3 @@ export const handleSoldProduct = async (req: Request, res: Response, next: NextF
   }
 };
 
-// customer purchase history
-// product stock
-// purchases amount

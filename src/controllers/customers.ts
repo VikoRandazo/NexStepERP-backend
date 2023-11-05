@@ -1,7 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import { CustomerModel } from "../../database/schemas/customer";
 import { customerValidationSchema } from "../validation/customers/customer";
+import { MongooseError } from "mongoose";
 
+interface MongoError extends Error {
+  code?: number;
+  keyPattern?: { [key: string]: number };
+  keyValue?: { [key: string]: any };
+}
 // middlewares
 export const getCustomers = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -13,27 +19,25 @@ export const getCustomers = async (req: Request, res: Response, next: NextFuncti
 };
 
 export const createCustomer = async (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.body);
+  console.log("creating client");
 
   try {
     const newCustomerData = req.body;
     const { firstName, lastName, email, phoneNumber, address } = newCustomerData;
-    const { street, city, state, postalCode, country } = address;
     const customerStructure = {
       firstName,
       lastName,
       email,
       phoneNumber,
       address,
-      dateRegistered: new Date().toISOString(),
-
       purchaseHistory: [],
     };
     const validation = await customerValidationSchema.validate(customerStructure);
 
     const newCustomer = await CustomerModel.create(validation);
     res.status(201).json({ message: "Success!", customer: newCustomer });
-  } catch (error) {
+  } catch (error: any) {
+    console.log(error);
     res.status(500).json(error);
   }
 };
@@ -57,6 +61,7 @@ export const updateCustomer = async (req: Request, res: Response, next: NextFunc
     const updates = req.body;
 
     const updatedCustomer = await CustomerModel.findByIdAndUpdate(cid, updates, { new: true });
+
     res.status(200).json({ message: "Success!", updatedCustomer });
   } catch (error) {
     res.status(500).json(error);
