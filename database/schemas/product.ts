@@ -3,6 +3,7 @@ import { Product } from "../../src/models/Products/Product";
 
 export const ProductSchema = new Schema(
   {
+    id: { type: Number, index: true, unique: true },
     name: { type: String, required: true, index: true },
     description: { type: String, required: false },
     price: { type: Number, required: true },
@@ -21,7 +22,7 @@ export const ProductSchema = new Schema(
     manufacturer: { type: String, required: false },
     purchasesAmount: { type: Number, required: false, default: 0 },
   },
-  { versionKey: false }
+  { versionKey: false}
 );
 
 export const ProductModel = model<Product>("product", ProductSchema);

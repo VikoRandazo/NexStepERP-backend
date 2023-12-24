@@ -42,9 +42,13 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
 
 export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const productData = req.body;
-    console.log(productData);
+    const productData:Product = req.body;
 
+    const lastId = await ProductModel.findOne().sort({id: -1})
+    console.log(lastId);
+    if (lastId) {
+      productData.id = lastId.id + 1
+    }
     const dataValidated = await productValidation.validate(productData);
 
     const newProduct = await ProductModel.create(dataValidated);
@@ -61,7 +65,7 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
 export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const pid = req.params.pid;
-    const foundProduct = await ProductModel.deleteOne({ _id: pid });
+    const foundProduct = await ProductModel.deleteOne({ id: pid });
     res.status(200).json({ message: "Success!", product_deleted: foundProduct });
   } catch (error) {
     console.log(error);

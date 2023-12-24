@@ -1,8 +1,10 @@
-import {Router} from "express"
-import { handleSoldProduct } from "../../controllers/sales"
+import { Router } from "express";
+import { handleSoldProduct, getAllSales, clearSales } from "../../controllers/sales";
 
-const router = Router()
+const router = Router();
 
-router.post("/:cid", handleSoldProduct)
+router.get("/all", getAllSales);
+router.post("/:cid", handleSoldProduct);
+router.delete("/delete_all", clearSales);
 
-export default router
+export default router;

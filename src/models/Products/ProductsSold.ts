@@ -1,5 +1,5 @@
 export interface ProductsSold {
-  pid: string;
+  pid: string | number;
   price: number
   quantity: number;
 }

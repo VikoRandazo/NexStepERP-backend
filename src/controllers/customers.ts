@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { CustomerModel } from "../../database/schemas/customer";
 import { customerValidationSchema } from "../validation/customers/customer";
-import { MongooseError } from "mongoose";
 
 interface MongoError extends Error {
   code?: number;
@@ -15,6 +14,20 @@ export const getCustomers = async (req: Request, res: Response, next: NextFuncti
     res.status(200).json(allCustomers);
   } catch (error) {
     res.status(500).json(error);
+  }
+};
+
+export const getCustomer = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const customerIds:string[] = req.body
+    const customers = await CustomerModel.find({ _id: { $in: customerIds } });
+    if (customers) {
+      res.status(200).json(customers);
+    } else {
+      res.status(404).json("clients ids didnt found")
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 

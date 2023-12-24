@@ -1,4 +1,3 @@
-import { Document } from "mongoose";
 import { ProductsSold } from "../Products/ProductsSold";
 
 export interface Sale {
