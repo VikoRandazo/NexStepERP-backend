@@ -26,7 +26,7 @@ export const handleSoldProduct = async (req: Request, res: Response, next: NextF
     const purchase = req.body;
     const { date, productsSold, totalAmount, customerId } = purchase;
 
-    console.log(purchase);
+    console.log(customerId);
 
     let productUpdates;
     let customerUpdates;

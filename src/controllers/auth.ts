@@ -72,3 +72,17 @@ export const handleLogin = async (req: Request, res: Response, next: NextFunctio
   //correct => res "user_verified:true, userFound"
   //wrong => res "user_verified:false, message:`email or password incorrect`"
 };
+
+export const handleTokenValidation = (req: Request, res: Response, next: NextFunction) => {
+  const token = req.body.token;
+
+  try {
+    const verified = jwt.verify(token, process.env.SECRET!);
+
+   res.status(200).json({ verified, user_verified: true });
+
+  } catch (error) {
+    
+    res.status(400).json({ message: "Unauthorized", user_verified: false });
+  }
+};
